@@ -1,1 +1,20 @@
-
+spring:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:6001/eureka/
+  cloud:
+    gateway:
+      routes:
+        - id: microservice-formateur
+          uri: lb://MabroukArijGestionFormateurs
+          predicates:
+            - Path=/formateur/**
+          filters:
+            - RewritePath=/formateur/(?<path>.*) , /${path}
+            - BeforeDate= 2024-01-10T17:42:74.789-07:00[Africa/Tunis]
+        - id: microservice-cours
+          uri: lb://MabroukArijEXamenGestionCours
+          predicates:
+            - Path=/cours/**
+          filters:
+            - RewritePath=/cours/(?<path>.*) , /${path}
